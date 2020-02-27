@@ -3,6 +3,21 @@
 
 using namespace std;
 
+/**
+    Recebe um ponteiro 's' para um array de caracteres e um caractere 'c'.
+    Procura por 'c' no array e retorna seu índice, caso exista.
+    Se 'c' não está contido em 's', retorna -1.
+*/
+int findChar(char* s, char c)
+{
+    for(int i=0; *(s+i)!='\0'; i++)
+    {
+        if(*(s+i)==c)
+            return i;
+    }
+    return -1;
+}
+
 int main()
 {
     int t, max_prefix, c;
@@ -16,8 +31,7 @@ int main()
         cin >> a >> b;
         for (int j = 0; j < a.size(); j++)
         {
-            c = b.find(a[j]); //TODO: substitute for a self made function
-            // cout << "found " << a[j] << " at " << c << " in " << b << endl;
+            c = findChar(&b[0], a[j]);
 
             if (c > -1)
             {
@@ -29,7 +43,6 @@ int main()
                 break;
             }
 
-            // cout << "b: " << b << endl;
         }
 
         cout << max_prefix << endl;
