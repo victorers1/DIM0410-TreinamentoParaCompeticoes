@@ -3,43 +3,19 @@
 
 using namespace std;
 
-/**
-    Recebe um ponteiro 's' para um array de caracteres e um caractere 'c'.
-    Procura por 'c' no array e retorna seu índice, caso exista.
-    Se 'c' não está contido em 's', retorna -1.
-*/
-/**
-int findChar(char* s, char c)
-{
-    for(int i=0; *(s+i)!='\0'; i++)
-    {
-        if(*(s+i)==c)
-            return i;
-    }
-    return -1;
-}
-
-*/
-
-void printArray(int a[], int t)
-{
-    for(int i=0; i<t; i++)
-        cout<<a[i]<<" ";
-}
-
-void zeraArray(int a[], int t)
-{
-    for(int i=0; i<t; i++)
-        a[i] = 0;
-}
+// void printArray(int a[])
+// {
+//     for (int i = 97; i < 123; i++)
+//         cout << a[i] << " ";
+// }
 
 int main()
 {
-    int t, max_prefix;
+    int t, max_prefix, index;
     string a, b;
 
-    int dicA [26] = {0}; // dicionários com contagem de cada letra em A
-    int dicB [26] = {0}; // dicionários com contagem de cada letra em B
+    int dicA[123] = {0}; // dicionÃ¡rios com contagem de cada letra em A
+    int dicB[123] = {0}; // dicionÃ¡rios com contagem de cada letra em B
 
     cin >> t;
 
@@ -47,40 +23,41 @@ int main()
     {
         max_prefix = 0;
 
-        zeraArray(dicA, 26);
-        zeraArray(dicB, 26);
+        // Zera arrays
+        for (int i = 97; i < 123; i++)
+            dicA[i] = 0;
+        for (int i = 97; i < 123; i++)
+            dicB[i] = 0;
 
         cin >> a >> b;
+
         for (int j = 0; j < a.size(); j++)
-        {
-            dicA[a[j]-97]++; // mapeia 'a' para 0 até 'z' para 25
-        }
+            dicA[a[j]]++; // caracteres de 'a' a 'z' tÃªm valores de 97 a 122
 
         for (int j = 0; j < b.size(); j++)
+            dicB[b[j]]++;
+
+        // cout << "a: " << endl;
+        // printArray(dicA);
+        // cout << endl;
+        // cout << "b: " << endl;
+        // printArray(dicB);
+        // cout << endl;
+
+        for (int j = 0; j < a.size(); j++)
         {
-            dicB[b[j]-97]++;
-        }
+            index = a[j]; //calcula Ã­ndice dos elementos que serÃ£o comparados de acordo com a letra
 
-        /*
-        cout<<"a: "<<endl;
-        printArray(dicA, 26);
-        cout<<endl;
-        cout<<"b: "<<endl;
-        printArray(dicB, 26);
-        cout<<endl;
-        */
 
-        for(int j = 0; j < a.size(); j++)
-        {
-            cout<<"qtd de "<<a[j]<<" em a: "<<dicA[a[j]-97]<<endl;
-            cout<<"qtd de "<<a[j]<<" em b: "<<dicB[a[j]-97]<<endl;
+            // cout << "Qtd de " << a[j] << " em a: " << dicA[index] << endl;
+            // cout << "Qtd de " << a[j] << " em b: " << dicB[index] << endl;
 
-            //max_prefix += dicA[a[j]] < dicB[a[j]] ? dicA[a[j]] : dicB[a[j]]; // soma a menor entre as quantidade de letras ao contador de prefixo
-
-            if(dicA[a[j]-97] <= dicB[a[j]-97])
+            if (dicA[index] > 0 && dicB[index] > 0) //
+            {
+                dicA[index]--;
+                dicB[index]--;
                 max_prefix++;
-            else
-                break;
+            }
         }
 
         cout << max_prefix << endl;
