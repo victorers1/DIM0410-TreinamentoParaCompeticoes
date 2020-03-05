@@ -55,7 +55,7 @@ int main() {
                 }
             }
         }
-
+        if(field!=1) cout<<endl;
         cout<<"Field #"<<field++<<":"<<endl;
         for(int i=0; i<n; i++) {
             for(int j=0; j<m; j++) {
@@ -63,8 +63,6 @@ int main() {
             }
             cout<<endl;
         }
-
-        cout<<endl;
     }
     return 0;
 }
