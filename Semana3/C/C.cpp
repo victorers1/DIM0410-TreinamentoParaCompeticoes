@@ -1,49 +1,59 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
+#include <map>
+
+typedef long long ll;
 
 using namespace std;
+int MAX = 1000000;
 
-int N;
-unsigned long int t;
+vector<bool> primes(MAX + 1, true); // Using from 1 to MAX+1
+map<ll, bool> Tprimes;
 
-vector<int> primes;
+/**
+ * 
+ */
+void sieve()
+{
+    primes[0] = primes[1] = false; // 1 is prime, and 0 doesn't count
 
-void printPrimes(){
-    for(int p : primes) {
-        cout<<p<<" ";
-    }
-    cout<<endl;
-}
-
-void findPrimes(){
-    int n=2;
-    bool prime=true;
-    int ceil;
-    for(; n<1000000000000; n++){
-        ceil = sqrt(n);
-        for(int i=2; i<ceil; i++){
-            cout<<"checking "<<n<<endl;
-            printPrimes();
-            if(n%i==0){
-                prime=false;
-                break;   
+    for (int i = 2; i * i < MAX; i++) // Percorre todo os elementos de primes[]
+    {
+        if (primes[i])
+        {
+            for (int j = i * i; j < MAX; j += i) // Atualiza todos os multiplos de i maiores que i²
+            {
+                primes[j] = false;
             }
         }
-        if(prime) primes.push_back(n);
     }
 }
 
-int main(){
-    findPrimes();
-    printPrimes();
-
-    cin>>N;
-
-    for(;N>0;N--){
-        cin>>t;
-
-        
+void mapping()
+{
+    for (int i = 2; i < MAX; i++) // Percorre toddos os elementos de primes[]
+    {
+        if (primes[i])
+        {
+            Tprimes[i * i] = true;
+        }
     }
-return 0;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    int n, x;
+    cin >> n;
+
+    sieve();
+    mapping();
+
+    while (n-- && cin >> x)
+    {
+        cout << (Tprimes[x] ? "YES" : "NO") << endl;
+    }
+
+    return 0;
 }
