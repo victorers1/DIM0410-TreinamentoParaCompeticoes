@@ -1,5 +1,3 @@
-// WRONG ANSWER ON TEST 5
-
 #include <iostream>
 #include <vector>
 #include <map>
@@ -13,17 +11,17 @@ vector<bool> primes(MAX + 1, true); // Using from 1 to MAX+1
 map<ll, bool> Tprimes;
 
 /**
- * 
+ *
  */
 void sieve()
 {
     primes[0] = primes[1] = false; // 1 is prime, and 0 doesn't count
 
-    for (int i = 2; i * i < MAX; i++) // Percorre todo os elementos de primes[]
+    for (ll i = 2; i * i <= MAX; i++) // Percorre todo os elementos de primes[]
     {
         if (primes[i])
         {
-            for (int j = i * i; j < MAX; j += i) // Atualiza todos os multiplos de i maiores que i²
+            for (ll j = i * i; j < MAX; j += i) // Atualiza todos os multiplos de i maiores que i²
             {
                 primes[j] = false;
             }
@@ -33,7 +31,7 @@ void sieve()
 
 void mapping()
 {
-    for (int i = 2; i < MAX; i++) // Percorre toddos os elementos de primes[]
+    for (ll i = 2; i < MAX; i++) // Percorre todos os elementos de primes[]
     {
         if (primes[i])
         {
@@ -46,12 +44,12 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int n, x;
-    cin >> n;
+    ll n, x;
 
     sieve();
     mapping();
 
+    cin >> n;
     while (n-- && cin >> x)
     {
         cout << (Tprimes[x] ? "YES" : "NO") << endl;
