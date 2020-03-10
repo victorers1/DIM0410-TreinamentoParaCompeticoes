@@ -10,40 +10,44 @@ int main()
     map<char, int> kString;
     string s, head="", tail="";
 
-
     cin>>k>>s;
+
+    string subStr[k];
 
     for(int i = 0; i< s.size(); i++)
     {
-        if(kString[s[i]]==k-1)
+        kString[s[i]]++;
+
+        if(kString[s[i]]==k)
         {
             kString[s[i]]=0;
-            head += s[i];
-            tail += s[i];
-            /*String resultante de head.append(tail) tem uma cópia a menos da string k,
-            pois os caracteres só  acrescentados depois que é digitado k-1 vezes.
-            */
-            cout<<"head: "<<head<<endl;
-            cout<<"tail: "<<tail<<endl;
-        }
-        else
-            kString[s[i]]++;
 
+            for(int j=0; j<k; j++)
+                subStr[j] += s[i];
+        }
 
     }
 
     bool isKString=true;
     for (map<char,int>::iterator it=kString.begin(); it!=kString.end(); ++it)
     {
-        cout << it->first << " => " << it->second << '\n';
+        //cout << it->first << " => " << it->second << '\n';
         if(it->second)
             isKString=false;
     }
 
     if(isKString)
     {
-        string str = head.append(tail);
+        string str="";
+        for(int i=0; i<k; i++)
+        {
+            str = str.append(subStr[i]);
+        }
         cout<<str<<endl;
+    }
+    else
+    {
+        cout<<-1<<endl;
     }
 
 
